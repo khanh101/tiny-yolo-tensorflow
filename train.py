@@ -84,7 +84,8 @@ with tf.Session() as sess:
             continue
         debugger = tf.is_nan(loss)
         while (1):
-            d = sess.run(debugger, feed_dict = {X:Xp, Y1:Y1p, Y2:Y2p})
+            d, l = sess.run([debugger, loss], feed_dict = {X:Xp, Y1:Y1p, Y2:Y2p})
+            print(l)
             if (not d): break
             else:
                 print("Re-random variables!")
