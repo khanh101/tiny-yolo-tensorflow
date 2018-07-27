@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+rm -rf graph
+rm -rf train_graph

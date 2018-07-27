@@ -1,0 +1,16 @@
+*.zip
+*.tgz
+*.jpg
+*.txt
+__pycache__
+graph
+train_graph
+data/images
+data/labels
+
+# OS Generated #
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+*.swp
