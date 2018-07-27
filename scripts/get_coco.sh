@@ -1,6 +1,6 @@
 #!/bin/sh
-wget https://pjreddie.com/media/files/train2014.zip
-wget https://pjreddie.com/media/files/coco/labels.tgz
+wget -c https://pjreddie.com/media/files/train2014.zip
+wget -c https://pjreddie.com/media/files/coco/labels.tgz
 unzip train2014.zip -d ./
 tar xzf labels.tgz -C ./
 mkdir ./data
