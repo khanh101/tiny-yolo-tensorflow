@@ -13,7 +13,7 @@ with g1.as_default() as g:
             in_tensor = g.get_tensor_by_name(in_name)
             batch_size, height, width, in_channels = in_tensor.get_shape().as_list()
             with g.name_scope("conv_{}".format(n)):
-                kernel = tf.Variable(tf.random_normal(shape = [kernel_size, kernel_size, in_channels, out_channels])/ (kernel_size*kernel_size*out_channels) , dtype = tf.float32, name = "kernel")
+                kernel = tf.Variable(tf.random_uniform(shape = [kernel_size, kernel_size, in_channels, out_channels])/ (kernel_size*kernel_size*out_channels) , dtype = tf.float32, name = "kernel")
                 scale  = tf.Variable(tf.random_normal(shape = [1, 1, 1, out_channels]), dtype = tf.float32, name = "scales")
                 bias   = tf.Variable(tf.random_normal(shape = [1, 1, 1, out_channels]), dtype = tf.float32, name = "biases")
                 '''
