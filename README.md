@@ -2,6 +2,12 @@
 
 Some notes in extracting weights from darknet to tensorflow in Notes.txt
 
+# DEPENDENCIES
+
+`numpy`
+`tensorflow`
+`opencv`
+
 # USAGE
 
 `make create`
