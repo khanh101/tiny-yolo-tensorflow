@@ -111,7 +111,7 @@ def create_array(input_size):
     out_width = width//32
     out_depth = 3*(5+classes)
     
-    X = image
+    X = image/255.0
     Y1 = np.random.random((1, out_height, out_width, out_depth))
     Y2 = np.random.random((1, 2*out_height, 2*out_width, out_depth))
     for i in range(3):
