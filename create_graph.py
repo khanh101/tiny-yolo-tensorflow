@@ -89,7 +89,7 @@ with g1.as_default() as g:
                 offset_x_np[:, :, i, :] = i/width
             offset_y_np = np.zeros((batch_size, height, width, in_channels//3))
             for i in range(height):
-                offset_y_np[:, :, i, :] = i/height
+                offset_y_np[:, i, :, :] = i/height
             offset_x = tf.constant(offset_x_np, dtype = tf.float32)
             offset_y = tf.constant(offset_y_np, dtype = tf.float32)
             for i in range(3):
