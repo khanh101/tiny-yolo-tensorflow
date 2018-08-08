@@ -91,8 +91,6 @@ with tf.Session() as sess:
         while (1):
             d, l = sess.run([debugger, loss], feed_dict = {X:Xp, Y1:Y1p, Y2:Y2p})
             if (not d):
-                print("Initialization done!")
-                print("Initial loss {}".format(l))
                 break
             else:
                 print("Re-random variables!")
