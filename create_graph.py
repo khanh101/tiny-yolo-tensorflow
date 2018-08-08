@@ -84,10 +84,10 @@ with g1.as_default() as g:
             batch_size, height, width, in_channels = in_tensor.get_shape().as_list()
             split = tf.split(in_tensor, 3, axis = 3)
             new_split = []
-            offset_x_np = np.zeros((batch_size, height, width, in_channels//3))
+            offset_x_np = np.zeros((batch_size, height, width, 1))
             for i in range(width):
                 offset_x_np[:, :, i, :] = i/width
-            offset_y_np = np.zeros((batch_size, height, width, in_channels//3))
+            offset_y_np = np.zeros((batch_size, height, width, 1))
             for i in range(height):
                 offset_y_np[:, i, :, :] = i/height
             offset_x = tf.constant(offset_x_np, dtype = tf.float32)
