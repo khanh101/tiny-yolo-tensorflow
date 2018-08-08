@@ -68,8 +68,8 @@ with tf.Session() as sess:
 
     train_writer = tf.summary.FileWriter("./train_graph", g)
     saver = tf.train.Saver()
-    tf.summary.histogram("loss", loss)
-    merge = tf.summary.merge_all()
+
+
 
 
 
@@ -93,9 +93,8 @@ with tf.Session() as sess:
                 print("Re-random variables!")
                 sess.run(tf.global_variables_initializer())
 
-        _ , lossp, summary = sess.run([trainer, loss, merge], feed_dict = {X: Xp, Y1: Y1p, Y2:Y2p})
+        _ , lossp = sess.run([trainer, loss], feed_dict = {X: Xp, Y1: Y1p, Y2:Y2p})
 
-        train_writer.add_summary(summary, step)
         print("Step {} : loss {}".format(step, lossp))
 
         if (step % 1250 ==0):
