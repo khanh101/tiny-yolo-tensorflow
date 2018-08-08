@@ -75,7 +75,7 @@ with tf.Session() as sess:
 
 
 
-    hm_steps = 400000
+    hm_steps = 25000
     sess.run(tf.global_variables_initializer())
 
     input_size = height
@@ -105,7 +105,7 @@ with tf.Session() as sess:
 
         train_writer.add_summary(summary, step)
 
-        if (step % 1250 ==0):
+        if (step % 2500 ==0):
             saver.save(sess, "./train_graph/tiny-yolo-{}.ckpt".format(step))
         if (step>hm_steps)
              saver.save(sess, "./train_graph/tiny-yolo-final.ckpt".format(step))       
