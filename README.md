@@ -46,7 +46,7 @@ layer     filters    size              input                output
 ```
 
 tensorflow model
-
+![alt text](https://raw.githubusercontent.com/khanh1412/tiny-yolo-tensorflow/master/images/training.png)
 ![alt text](https://raw.githubusercontent.com/khanh1412/tiny-yolo-tensorflow/master/images/tensorboard.png)
 ![alt text](https://raw.githubusercontent.com/khanh1412/tiny-yolo-tensorflow/master/images/train_tensorboard.png)
 ![alt text](https://raw.githubusercontent.com/khanh1412/tiny-yolo-tensorflow/master/images/train_tensorboard2.png)
