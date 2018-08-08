@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-tensorboard --logdir=graph
+tensorboard --logdir=train_graph
