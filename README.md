@@ -8,6 +8,8 @@ Some notes in extracting weights from darknet to tensorflow in Notes.txt
 
 `make train`
 
+`make test`
+
 # yolov3-tiny from darknet
 ```
 layer     filters    size              input                output
