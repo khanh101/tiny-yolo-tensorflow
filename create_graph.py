@@ -92,6 +92,7 @@ with g1.as_default() as g:
                 offset_y_np[:, i, :, :] = i/height
             offset_x = tf.constant(offset_x_np, dtype = tf.float32)
             offset_y = tf.constant(offset_y_np, dtype = tf.float32)
+            
             for i in range(3):
                 o = split[i][:, :, :, 0:1]
                 o = tf.sigmoid(o)
@@ -111,7 +112,7 @@ with g1.as_default() as g:
                 #obj,x,y,w,h,classes
             
             with g.name_scope("yolo_{}".format(n)):
-                yolo = tf.concat(split, 3, name = "out")
+                yolo = tf.concat(new_split, 3, name = "out")
             return yolo
 
         height = 416
