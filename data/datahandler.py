@@ -144,6 +144,10 @@ def create_array(input_size):
             Y2[0, y, x, 4+i*(2*out_depth//3)] = h0
             Y2[0, y, x, 4:(i+1)*(2*out_depth//3)] = 0
             Y2[0, y, x, cls] = 1
+    X[X<1e-300)] = 1e-300
+    Y1[Y1<1e-300)] = 1e-300
+    Y2[Y2<1e-300)] = 1e-300
+
     return X, Y1, Y2
 
 def create_many_arrays(batch_size, input_size):
