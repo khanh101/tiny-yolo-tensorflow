@@ -86,8 +86,7 @@ with tf.Session() as sess:
             time.sleep(1)
             continue
         debugger = tf.logical_or(tf.is_nan(loss), tf.is_inf(loss))
-#        import pdb
-#        pdb.set_trace()
+
         while (1):
             d, l = sess.run([debugger, loss], feed_dict = {X:Xp, Y1:Y1p, Y2:Y2p})
             if (not d):
@@ -108,8 +107,8 @@ with tf.Session() as sess:
 
         if (step % 1250 ==0):
             saver.save(sess, "./train_graph/tiny-yolo-{}.ckpt".format(step))
-
-        
+        if (step>hm_steps)
+             saver.save(sess, "./train_graph/tiny-yolo-final.ckpt".format(step))       
 
 
 
