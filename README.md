@@ -2,7 +2,13 @@
 
 Some notes in extracting weights from darknet to tensorflow in Notes.txt
 
-yolov3-tiny from darknet
+# USAGE
+
+`make create`
+
+`make train`
+
+# yolov3-tiny from darknet
 ```
 layer     filters    size              input                output
     0 conv     16  3 x 3 / 1   416 x 416 x   3   ->   416 x 416 x  16  0.150 BFLOPs

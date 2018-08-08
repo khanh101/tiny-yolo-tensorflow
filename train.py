@@ -102,7 +102,7 @@ with tf.Session() as sess:
     loss_wh     = {}
     loss_obj    = {}
     loss_noobj  = {}
-    loss_p      = {}""".format(step, lossp, lxy, lwh, lobj, lnoobj, lp), end="\n")
+    loss_p      = {}\n""".format(step, lossp, lxy, lwh, lobj, lnoobj, lp), end="\n")
 
         train_writer.add_summary(summary, step)
 
