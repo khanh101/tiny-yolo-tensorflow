@@ -48,8 +48,8 @@ with tf.Session() as sess:
         for split in split_Y2:                                                                         
             Y.append(tf.reshape(split, [batch_size * 2*out_height * 2*out_width, out_channels//3]))       
     
-        h = tf.concat(h, 0)
-        Y = tf.concat(Y, 0)
+        h = tf.concat(h, axis=0, name = "h")
+        Y = tf.concat(Y, axis=0)
    
         Lcoord = 1
         Lnoobj = 1
