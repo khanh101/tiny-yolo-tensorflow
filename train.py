@@ -85,11 +85,12 @@ with tf.Session() as sess:
         if step == 0:
             time.sleep(1)
             continue
-        debugger1 = tf.is_nan(loss)
-        debugger2 = tf.is_inf(loss)
+        debugger = tf.logical_or(tf.is_nan(loss), tf.is_inf(loss))
+#        import pdb
+#        pdb.set_trace()
         while (1):
-            d1, d2, l = sess.run([debugger1, debugger2, loss], feed_dict = {X:Xp, Y1:Y1p, Y2:Y2p})
-            if (not d1) and (not d2):
+            d, l = sess.run([debugger, loss], feed_dict = {X:Xp, Y1:Y1p, Y2:Y2p})
+            if (not d):
                 print("Initialization done!")
                 print("Initial loss {}".format(l))
                 break
