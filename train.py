@@ -107,7 +107,7 @@ with tf.Session() as sess:
 
         if (step % 2500 ==0):
             saver.save(sess, "./train_graph/tiny-yolo-{}.ckpt".format(step))
-        if (step>hm_steps)
+        if (step>hm_steps):
              saver.save(sess, "./train_graph/tiny-yolo-final.ckpt".format(step))       
 
 
