@@ -10,6 +10,8 @@ import sys
 import shutil
 import time
 
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
 saver = tf.train.import_meta_graph("./graph/tiny-yolo.ckpt.meta")
 with tf.Session() as sess:
     saver.restore(sess, "./graph/tiny-yolo.ckpt")
@@ -95,16 +97,14 @@ with tf.Session() as sess:
                 sess.run(tf.global_variables_initializer())
         summary, _ , lossp, lxy, lwh, lobj, lnoobj, lp = sess.run([merge, trainer, loss, loss_xy, loss_wh, loss_obj, loss_noobj, loss_p], feed_dict = {X: Xp, Y1: Y1p, Y2:Y2p})
 
-        print("Step {} : loss {}".format(step, lossp))
-        print("     loss_xy     = {}".format(lxy))
-        print("     loss_wh     = {}".format(lwh))
-        print("     loss_obj    = {}".format(lobj))
-        print("     loss_noobj  = {}".format(lnoobj))
-        print("     loss_p      = {}".format(lp))
-
+        print("""Step {} : loss {}
+    loss_xy     = {}
+    loss_wh     = {}
+    loss_obj    = {}
+    loss_noobj  = {}
+    loss_p      = {}""".format(step, lossp, lxy, lwh, lobj, lnoobj, lp), end="\r")
 
         train_writer.add_summary(summary, step)
-        print("Step {} : loss {}".format(step, lossp))
 
         if (step % 1250 ==0):
             saver.save(sess, "./train_graph/tiny-yolo-{}.ckpt".format(step))
