@@ -1,5 +1,7 @@
 # TINY YOLO v3 model in tensorflow
 
+![alt text](https://raw.githubusercontent.com/khanhhhh/tiny-yolo-tensorflow/master/docs/Screenshot%20from%202019-09-06%2000-14-44.png)
+
 Some notes in extracting weights from darknet to tensorflow in Notes.txt
 
 # DEPENDENCIES
