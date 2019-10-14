@@ -4,12 +4,20 @@ import numpy as np
 import sys
 import os
 import shutil
+import pdb
 
 g1 = tf.Graph()
 
 with g1.as_default() as g:
     with g.name_scope("YOLO"):
-        def conv(n, in_name, out_channels, kernel_size, stride, nonlin="relu", keep_prob=1, batchnorm=1):
+        def drop(n, in_name, keep_prob = 1):
+            in_tensor = g.get_tensor_by_name(in_name)
+            with g.name_scope("drop_{}".format(n)):
+                drop = tf.nn.dropout(in_tensor, keep_prob)
+                drop = tf.identity(drop, name = "out")
+            return drop
+
+        def conv(n, in_name, out_channels, kernel_size, stride, nonlin="relu", batchnorm=1):
             in_tensor = g.get_tensor_by_name(in_name)
             batch_size, height, width, in_channels = in_tensor.get_shape().as_list()
             with g.name_scope("conv_{}".format(n)):
@@ -19,7 +27,6 @@ with g1.as_default() as g:
                 '''
                 conv
                 batchnorm + bias + scale
-                drop
                 nonlin
                 '''
                 strides = (1, stride, stride, 1)
@@ -29,13 +36,12 @@ with g1.as_default() as g:
                     batchnorm = tf.nn.batch_normalization(conv, mean_conv, var_conv, bias, scale, 1e-100, name = "batchnorm")
                 else:
                     batchnorm = tf.add(conv, bias, name = "batchnorm")
-                drop = tf.nn.dropout(batchnorm, keep_prob, name = "drop")
                 if nonlin == "relu":
-                    nonlin = tf.nn.leaky_relu(drop)
+                    nonlin = tf.nn.leaky_relu(batchnorm)
                 elif nonlin == "sigmoid":
-                    nonlin = tf.sigmoid(drop)
+                    nonlin = tf.sigmoid(batchnorm)
                 elif nonlin == "linear":
-                    nonlin = tf.identity(drop)
+                    nonlin = tf.identity(batchnorm)
                 else:
                     raise Exception(" \"{}\" is not a nonlinear function!".format(nonlin))
                 conv = tf.identity(nonlin, name = "out")
@@ -128,6 +134,7 @@ with g1.as_default() as g:
         out_depth = 3*(5 + classes)
 
         X = tf.placeholder(shape = (batch_size, height, width, image_depth), dtype = tf.float32, name = "input")
+        dropout = tf.placeholder(shape = (), dtype = tf.float32, name = "dropout")
         #0
         conv_0 = conv(0, "YOLO/input:0", 16, 3, 1)
         #1
@@ -157,17 +164,19 @@ with g1.as_default() as g:
         #13
         conv(13, "YOLO/conv_12/out:0", 256, 1, 1)
         #14
-        conv(14, "YOLO/conv_13/out:0", 512, 3, 1, keep_prob=0.5)
+        conv(14, "YOLO/conv_13/out:0", 512, 3, 1)
+        drop(14, "YOLO/conv_14/out:0", dropout) 
         #15
-        conv(15, "YOLO/conv_14/out:0", 255, 1, 1, nonlin = "linear", batchnorm=0)
+        conv(15, "YOLO/drop_14/out:0", 255, 1, 1, nonlin = "linear", batchnorm=0)
         #16
         yolo(16, "YOLO/conv_15/out:0", anchor1)
         #17
         route(17, "YOLO/conv_13/out:0", None)
         #18
-        conv(18, "YOLO/route_17/out:0", 128, 1, 1, keep_prob=0.5)
+        conv(18, "YOLO/route_17/out:0", 128, 1, 1)
+        drop(18, "YOLO/conv_18/out:0", dropout)
         #19
-        upsample(19, "YOLO/conv_18/out:0", 2)
+        upsample(19, "YOLO/drop_18/out:0", 2)
         #20
         route(20, "YOLO/upsample_19/out:0", "YOLO/conv_8/out:0")
         #21
