@@ -88,13 +88,13 @@ with tf.Session() as sess:
         debugger = tf.logical_or(tf.is_nan(loss), tf.is_inf(loss))
 
         while (1):
-            d, l = sess.run([debugger, loss], feed_dict = {X:Xp, Y1:Y1p, Y2:Y2p})
+            d, l = sess.run([debugger, loss], feed_dict = {X:Xp, Y1:Y1p, Y2:Y2p, "YOLO/dropout:0" = 0.5})
             if (not d):
                 break
             else:
                 print("Re-random variables!")
                 sess.run(tf.global_variables_initializer())
-        summary, _ , lossp, lxy, lwh, lobj, lnoobj, lp = sess.run([merge, trainer, loss, loss_xy, loss_wh, loss_obj, loss_noobj, loss_p], feed_dict = {X: Xp, Y1: Y1p, Y2:Y2p})
+        summary, _ , lossp, lxy, lwh, lobj, lnoobj, lp = sess.run([merge, trainer, loss, loss_xy, loss_wh, loss_obj, loss_noobj, loss_p], feed_dict = {X: Xp, Y1: Y1p, Y2:Y2p, "YOLO/dropout:0" = 0.5})
 
         print("""Step {} : loss {}
     loss_xy     = {}

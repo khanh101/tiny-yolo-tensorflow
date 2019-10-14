@@ -26,7 +26,7 @@ prediction = tf.image.non_max_suppression(boxes, scores, 10)
 
 def detect(im):
     Xp = letterbox(im)
-    return sess.run(prediction, feed_dict = {X:Xp})
+    return sess.run(prediction, feed_dict = {X:Xp, "YOLO/dropout:0": 1})
 
 def letterbox(im, size=416):
     h, w, _ = im.shape
